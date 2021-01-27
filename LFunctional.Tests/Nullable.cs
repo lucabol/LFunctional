@@ -181,4 +181,24 @@ public partial class Tests
 
         Assert.Equal("bobrob", e); 
     }
+    [Fact]
+    public void can_construct_compound_types_with_option()
+    {
+        int? o = 14;
+        var m = from n in Name.Of("bob")
+                from a in Age.Of(12)
+                from i in o.ToResult()
+                select new Mixed(n, a, i);
+
+        m.ForEachFailure(e => Assert.True(false, e.ToString()));
+
+        int? z = null;
+
+        var u = from n in Name.Of("bob")
+                from a in Age.Of(12)
+                from i in z.ToResult()
+                select new Mixed(n, a, i);
+
+        u.ForEach(x => Assert.True(false, x.ToString()));
+    }
 }

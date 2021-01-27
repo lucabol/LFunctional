@@ -95,4 +95,10 @@ public static partial class LFunctional {
                 ()  => default(R?)
             ),
             () => default(R?));
+
+    // conversions
+    public static Result<S> ToResult<S>(this S? s) where S:class
+        => s.Match(x => x, () => Fail<S>(new NullReferenceException()));
+    public static Result<S> ToResult<S>(this S? s) where S:struct
+        => s.Match(x => x, () => Fail<S>(new NullReferenceException()));
 }

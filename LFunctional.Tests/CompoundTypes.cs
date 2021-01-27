@@ -26,4 +26,8 @@ public static partial class CompoundTypes {
                 .MapWhileErrors(() => (StringError) 
                     $"Error constructing {nameof(Faker)}. RealAge({realAge}) >= FakeAge({fakeAge})");
     }
+
+    // Using nullable
+
+    public record Mixed(Name? Name, Age Age, int AnInt);
 }

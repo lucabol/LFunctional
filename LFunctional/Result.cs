@@ -12,13 +12,16 @@ static partial class LFunctional {
 
         public static implicit operator StringError(string s) => new StringError(s);
     }
+    public record ExceptionError(Exception Exception): Error {
+        public static implicit operator ExceptionError(Exception e) => new ExceptionError(e);
+    }
 
     // The elevated type
     public abstract record Result<S>() {
         internal sealed record Success(S Value)                   : Result<S>;
         internal sealed record Failure(IEnumerable<Error> Errors) : Result<S>;
 
-        public static implicit operator Result<S>(S s)       => Success(s);
+        public static implicit operator Result<S>(S s)  => Success(s);
     }
 
     // Return functions
@@ -26,8 +29,7 @@ static partial class LFunctional {
     public static Result<S> Fail<S>(IEnumerable<Error> ee)   => new Result<S>.Failure(ee);
     public static Result<S> Fail<S>(Error e)                 => Fail<S>(Enumerable.Repeat(e, 1));
     public static Result<S> Fail<S>(string s)                => Fail<S>(new StringError(s));
-
-
+    public static Result<S> Fail<S>(Exception e)             => Fail<S>(new ExceptionError(e));
 
     // Extractor
     public static R Match<S,R>(this Result<S> @this, Func<S,R> success, Func<IEnumerable<Error>, R> failure)
@@ -35,6 +37,8 @@ static partial class LFunctional {
             Result<S>.Success s => success(s.Value),
             Result<S>.Failure e    => failure(e.Errors),
             _                   => throw new Exception("Either success or failure.") };
+
+        
     // Classical functional lore
     public static Result<R> Map<S,R>(this Result<S> @this, Func<S,R> f)
         => @this.Match( v => f(v), ee => Fail<R>(ee)); 
