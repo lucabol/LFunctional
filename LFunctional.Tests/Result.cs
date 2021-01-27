@@ -4,6 +4,7 @@ using Xunit;
 using static LFunctional;
 using static SimpleTypes;
 using static CompoundTypes;
+using System.Linq;
 
 public partial class Tests
 {
@@ -42,6 +43,7 @@ public partial class Tests
         var f2 = Success<Func<int, int, int>>((x, y) => x + y);
         var r = f2.Apply(x).Apply(y);
         AssertValue(2 + 1, r);
+
     }
     [Fact]
     public void can_construct_and_use_LINQ()

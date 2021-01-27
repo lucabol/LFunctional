@@ -4,6 +4,7 @@ using Xunit;
 using static LFunctional;
 using static SimpleTypes;
 using static CompoundTypes;
+using System.Linq;
 
 public partial class Tests
 {
@@ -200,5 +201,6 @@ public partial class Tests
                 select new Mixed(n, a, i);
 
         u.ForEach(x => Assert.True(false, x.ToString()));
+        u.ForEach(_ => throw new Exception("Not here"), errors => Assert.IsType<ExceptionError>(errors.FirstOrDefault()));
     }
 }

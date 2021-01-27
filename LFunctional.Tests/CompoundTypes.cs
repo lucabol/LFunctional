@@ -25,6 +25,7 @@ public static partial class CompoundTypes {
                 select new Faker(n, r, f))
                 .MapWhileErrors(() => (StringError) 
                     $"Error constructing {nameof(Faker)}. RealAge({realAge}) >= FakeAge({fakeAge})");
+
     }
 
     // Using nullable

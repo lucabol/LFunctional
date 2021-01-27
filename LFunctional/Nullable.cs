@@ -97,8 +97,12 @@ public static partial class LFunctional {
             () => default(R?));
 
     // conversions
+    private const string NULLMESSAGE = "Unexpected null value";
+    private const int SKIPFRAMES = 5;
+
     public static Result<S> ToResult<S>(this S? s) where S:class
-        => s.Match(x => x, () => Fail<S>(new NullReferenceException()));
+        => s.Match(x => x, () => Fail<S>(GetException(NULLMESSAGE, SKIPFRAMES)));
+
     public static Result<S> ToResult<S>(this S? s) where S:struct
-        => s.Match(x => x, () => Fail<S>(new NullReferenceException()));
+        => s.Match(x => x, () => Fail<S>(GetException(NULLMESSAGE, SKIPFRAMES)));
 }
