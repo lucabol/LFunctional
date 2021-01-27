@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "LFunctional.Program/1.0.0": {
+        "dependencies": {
+          "LFunctional": "1.0.0"
+        },
+        "runtime": {
+          "LFunctional.Program.dll": {}
+        }
+      },
+      "LFunctional/1.0.0": {
+        "runtime": {
+          "LFunctional.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LFunctional.Program/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LFunctional/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
