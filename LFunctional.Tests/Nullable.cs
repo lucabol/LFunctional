@@ -109,4 +109,76 @@ public partial class Tests
         string? t = null;
         Assert.Null(t.Map(i => "3"));
     }
+    [Fact]
+    public void can_select()
+    {
+
+        // val to val
+        int? y = 2;
+        Assert.Equal(y, y.Select(id));
+        int? z = null;
+        Assert.Null(z.Select(i => 3));
+
+        // val to ref
+        int? i = 2;
+        Assert.Equal(i.ToString(), i.Select(j => j.ToString()));
+        int? j = null;
+        Assert.Null(j.Select(j => "2"));
+
+        // ref to ref
+        string? h = "Bob";
+        Assert.Equal("Bob", h.Select(id));
+        string? k = null;
+        Assert.Null(k.Select(i => "3"));
+
+        // ref to vale
+        string? o = "2";
+        Assert.Equal(int.Parse(o), o.Select(int.Parse));
+        string? t = null;
+        Assert.Null(t.Select(i => "3"));
+    }
+    [Fact]
+    public void can_linq_query()
+    {
+        // simple case
+        int? a = 3;
+        int? b = 2;
+
+        var c = from i in a
+                from j in b
+                select a + b;
+
+        Assert.Equal(5, c);
+
+        int? n = null;
+
+        var k = from i in a
+                from j in n
+                select a + b;
+
+        Assert.Null(k);
+
+        // different types val + ref
+        string? s = "bob";
+        var p = from i in a
+                from j in s
+                select j + i;
+
+        Assert.Equal("bob3", p); 
+
+        // different type ref + val
+        var q = from j in s
+                from i in a
+                select j + i;
+
+        Assert.Equal("bob3", p); 
+
+        // ref + ref
+        string? l = "rob";
+        var e = from j in s
+                from i in l
+                select j + i;
+
+        Assert.Equal("bobrob", e); 
+    }
 }
