@@ -2,6 +2,7 @@ using System;
 using Unit = System.ValueTuple;
 
 public static partial class LFunctional {
+
       public static Func<T1, Func<T2, R>> Curry<T1, T2, R>(this Func<T1, T2, R> func)
           => t1 => t2 => func(t1, t2);
 

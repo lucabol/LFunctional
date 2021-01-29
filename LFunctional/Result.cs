@@ -53,8 +53,10 @@ static partial class LFunctional {
         (fR, xR) switch {
             (Result<Func<S,R>>.Success sf,Result<S>.Success sx)
                                                  => sf.Value(sx.Value),
-            (Result<Func<S,R>>.Failure sf, _)       => Fail<R>(sf.Errors),
-            (_ ,Result<S>.Failure sx)               => Fail<R>(sx.Errors),
+            (Result<Func<S,R>>.Failure sf, Result<S>.Failure sx)
+                                                 => Fail<R>(sf.Errors.Concat(sx.Errors)),
+            (Result<Func<S,R>>.Failure sf, _)    => Fail<R>(sf.Errors),
+            (_ ,Result<S>.Failure sx)            => Fail<R>(sx.Errors),
             _                                    => throw new Exception("Either Success or Failure")
         };
 

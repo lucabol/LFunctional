@@ -44,6 +44,17 @@ public partial class Tests
         var r = f2.Apply(x).Apply(y);
         AssertValue(2 + 1, r);
 
+        var fa = Faker.OfApplicative("bob", 34, 45);
+        fa.ForEachFailure(_ => Assert.True(false, "not here"));
+
+        var fb = Faker.OfApplicative("bob", 344, 455);
+        fb.ForEachFailure(ee => Assert.Equal(2, ee.Count()));
+
+        var fc = Faker.OfApplicative("aaaaaaaaaaaaaaaaaaaaaaaaaaa", 344, 455);
+        fc.ForEachFailure(ee => Assert.Equal(3, ee.Count()));
+
+        var fd = Faker.OfApplicative("bob", 344, 30);
+        fd.ForEachFailure(ee => Assert.Single(ee));
     }
     [Fact]
     public void can_construct_and_use_LINQ()

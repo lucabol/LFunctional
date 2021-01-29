@@ -5,6 +5,7 @@
 
     <IsPackable>false</IsPackable>
     <Nullable>Enable</Nullable>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
   </PropertyGroup>
 
   <ItemGroup>

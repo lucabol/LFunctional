@@ -26,7 +26,7 @@ public static partial class SimpleTypes {
         Name(string v) => Value = v;
 
         public static Result<Name> Of(string name)
-            => ConstrainedString(name, 50, new Name (name), "Name more than 50 chars");
+            => ConstrainedString(name, 10, new Name (name), "Name more than 10 chars");
 
     }
 

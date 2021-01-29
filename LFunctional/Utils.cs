@@ -20,7 +20,12 @@ public static partial class LFunctional {
     public static Unit Unit() => default;
     public static T id<T>(T t) => t;
 
+    public static Func<Unit> ToFunc(this Action a) => () => { a(); return Unit();};
     public static Func<T, Unit> ToFunc<T>(this Action<T> a) => t => { a(t); return Unit();};
+    public static Func<T1, T2, Unit> ToFunc<T1, T2>(this Action<T1, T2> a) => (t1, t2)
+        => { a(t1, t2); return Unit();};
+    public static Func<T1, T2, T3, Unit> ToFunc<T1, T2, T3>(this Action<T1, T2, T3> a) => (t1, t2, t3)
+        => { a(t1, t2, t3); return Unit();};
 
 
 }
