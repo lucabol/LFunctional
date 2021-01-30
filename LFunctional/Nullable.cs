@@ -57,44 +57,90 @@ public static partial class LFunctional {
 
     public static R? SelectMany<S,S1,R>
         (this S? @this, Func<S,S1?> bind, Func<S,S1,R> proj, R? _ = default)
-        where S:class where S1:class
+        where S:class where S1:class where R:struct
         => @this.Match(
             s => bind(s).Match(
                 s1 => proj(s, s1),
-                ()  => default(R?)
-            ),
-            () => default(R?));
-
-
-    public static R? SelectMany<S,S1,R>
-        (this S? @this, Func<S,S1?> bind, Func<S,S1,R> proj, R? _ = default)
-        where S:class where S1:struct
-        => @this.Match(
-            s => bind(s).Match(
-                s1 => proj(s, s1),
-                ()  => default(R?)
-            ),
-            () => default(R?));
-            
-    public static R? SelectMany<S,S1,R>
-        (this S? @this, Func<S,S1?> bind, Func<S,S1,R> proj, R? _ = default)
-        where S:struct where S1:class
-        => @this.Match(
-            s => bind(s).Match(
-                s1 => proj(s, s1),
-                ()  => default(R?)
+                () => default(R?)
             ),
             () => default(R?));
 
     public static R? SelectMany<S,S1,R>
         (this S? @this, Func<S,S1?> bind, Func<S,S1,R> proj, R? _ = default)
-        where S:struct where S1:struct
+        where S:class where S1:class where R:class
         => @this.Match(
             s => bind(s).Match(
                 s1 => proj(s, s1),
-                ()  => default(R?)
+                () => default(R?)
             ),
             () => default(R?));
+
+    public static R? SelectMany<S,S1,R>
+        (this S? @this, Func<S,S1?> bind, Func<S,S1,R> proj, R? _ = default)
+        where S:class where S1:struct where R:struct
+        => @this.Match(
+            s => bind(s).Match(
+                s1 => proj(s, s1),
+                () => default(R?)
+            ),
+            () => default(R?));
+
+     public static R? SelectMany<S,S1,R>
+        (this S? @this, Func<S,S1?> bind, Func<S,S1,R> proj, R? _ = default)
+        where S:class where S1:struct where R:class
+        => @this.Match(
+            s => bind(s).Match(
+                s1 => proj(s, s1),
+                () => default(R?)
+            ),
+            () => default(R?));
+           
+    public static R? SelectMany<S,S1,R>
+        (this S? @this, Func<S,S1?> bind, Func<S,S1,R> proj, R? _ = default)
+        where S:struct where S1:class where R:struct
+        => @this.Match(
+            s => bind(s).Match(
+                s1 => proj(s, s1),
+                () => default(R?)
+            ),
+            () => default(R?));
+
+    public static R? SelectMany<S,S1,R>
+        (this S? @this, Func<S,S1?> bind, Func<S,S1,R> proj, R? _ = default)
+        where S:struct where S1:class where R:class
+        => @this.Match(
+            s => bind(s).Match(
+                s1 => proj(s, s1),
+                () => default(R?)
+            ),
+            () => default(R?));
+
+    public static R? SelectMany<S,S1,R>
+        (this S? @this, Func<S,S1?> bind, Func<S,S1,R> proj, R? _ = default)
+        where S:struct where S1:struct where R:class
+        => @this.Match(
+            s => bind(s).Match(
+                s1 => proj(s, s1),
+                () => default(R?)
+            ),
+            () => default(R?));
+    public static R? SelectMany<S,S1,R>
+        (this S? @this, Func<S,S1?> bind, Func<S,S1,R> proj, R? _ = default)
+        where S:struct where S1:struct where R:struct
+        => @this.Match(
+            s => bind(s).Match(
+                s1 => proj(s, s1),
+                () => default(R?)
+            ),
+            () => default(R?));
+
+    public static T? Where<T>(this T? @this, Func<T, bool> pred)
+        where T:class
+        => @this.Match(t => pred(t) ? @this : default(T?), () => default(T?));
+
+    public static T? Where<T>(this T? @this, Func<T, bool> pred)
+        where T:struct
+        => @this.Match(t => pred(t) ? @this : default(T?), () => default(T?));
 
     // conversions
     private const string NULLMESSAGE = "Unexpected null value";

@@ -147,17 +147,25 @@ public partial class Tests
 
         var c = from i in a
                 from j in b
-                select a + b;
+                where i + j > 4
+                select i + j;
 
         Assert.Equal(5, c);
 
         int? n = null;
 
-        var k = from i in a
-                from j in n
-                select a + b;
+        int? k = from i in a
+                 from j in n
+                 select i + j;
 
         Assert.Null(k);
+
+        int? x = from i in a
+                 from j in n
+                 where i + j < 4
+                 select i + j;
+
+        Assert.Null(x);
 
         // different types val + ref
         string? s = "bob";
