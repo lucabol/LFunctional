@@ -1,11 +1,7 @@
-
 using System;
 using System.Collections.Generic;
 using Unit = System.ValueTuple;
-
-abstract record Result<T>();
-record OK<T>(T Value): Result<T>;
-record Fail<T>(string Error): Result<T>;
+using static LFunctional;
 
 record State(string ConnectionString) {
 
@@ -15,11 +11,11 @@ record State(string ConnectionString) {
         from _ in Log("logged something")
         select r;
 
-    static Result<string> OpenConnection(string s) => new OK<string>("an opened connection");
-    static Result<string> Query(object o) => new OK<string>("a result");
+    static Result<string> OpenConnection(string s) => "an opened connection";
+    static Result<string> Query(object o) => "a result";
 
     string aLog = "";
-    Result<Unit> Log(string s) { return new OK<Unit>(new ());}
+    Result<Unit> Log(string s) { aLog +=s; return new System.ValueTuple();}
 
     static void MyMain() {
         var r = new State("myserver").DoSideEffectingStuff(3);
